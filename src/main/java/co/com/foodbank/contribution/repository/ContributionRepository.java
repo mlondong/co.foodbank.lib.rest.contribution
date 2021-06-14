@@ -18,4 +18,15 @@ public interface ContributionRepository
     Contribution findByCodeBar(String code)
             throws ContributionNotFoundException;
 
+    // @Query(value = "$or:[{'creatorUsername':?0},{'sharedUsers':{$in:?0}}]",
+    // fields = "{'databases':1}")
+
+    /*
+     * @Query("update Contribution u set u.state =:state where u.id =:id")
+     * Contribution updateContribution(
+     * 
+     * @Param(value = "state") IStateContribution state,
+     * 
+     * @Param(value = "id") String id);
+     */
 }

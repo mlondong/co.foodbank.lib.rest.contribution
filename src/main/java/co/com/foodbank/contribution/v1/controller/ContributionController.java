@@ -77,14 +77,39 @@ public class ContributionController {
 
 
 
+    /**
+     * Method to create A GeneralContribution.
+     * 
+     * @param dto
+     * @return {@code IContribution}
+     */
     public IContribution createGC(GeneralContributionDTO dto) {
         return service.createGC(dto);
     }
 
 
 
+    /**
+     * Method to update GereralContribution.
+     * 
+     * @param dto
+     * @param _id
+     * @return {@code IContribution}
+     */
     public IContribution updateGC(GeneralContributionDTO dto, String _id) {
         return service.updateGC(dto, _id);
+    }
+
+
+
+    /**
+     * Method to update state Contribution
+     * 
+     * @param _id
+     * @return {@code IContribution}
+     */
+    public IContribution upState(String _id, String option) {
+        return service.upState(_id, option);
     }
 
 

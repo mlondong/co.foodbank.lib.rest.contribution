@@ -79,7 +79,7 @@ public class ContributionRestController {
      * @param dto
      * @return {@code ResponseEntity<IContribution>}
      */
-    @PostMapping(value = "/createDc",
+    @PostMapping(value = "/createDetailContribution",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -97,7 +97,7 @@ public class ContributionRestController {
      * @param dto
      * @return {@code ResponseEntity<IContribution>}
      */
-    @PutMapping(value = "/updateDc/{id}",
+    @PutMapping(value = "/updateDetailContribution/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -116,7 +116,7 @@ public class ContributionRestController {
      * @param dto
      * @return {@code ResponseEntity<IContribution>}
      */
-    @PostMapping(value = "/createGc",
+    @PostMapping(value = "/createGeneralContribution",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -134,7 +134,7 @@ public class ContributionRestController {
      * @param dto
      * @return {@code ResponseEntity<IContribution>}
      */
-    @PutMapping(value = "/updateGc/{id}",
+    @PutMapping(value = "/updateGeneralContribution/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -143,6 +143,26 @@ public class ContributionRestController {
             @PathVariable("id") @NotBlank @NotNull String _id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(controller.updateGC(dto, _id));
+    }
+
+
+
+    /**
+     * Method to update the state in contributions (General or Detail) .
+     * 
+     * @param _id
+     * @return {@code ResponseEntity<IContribution>}
+     */
+    @PutMapping(value = "/upState/{id}/option/{option}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<IContribution> upState(
+            @RequestBody @Valid GeneralContributionDTO dto,
+            @NotBlank @NotNull @PathVariable("id") String _id,
+            @NotBlank @NotNull @PathVariable("option") String option) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(controller.upState(_id, option));
     }
 
 
