@@ -4,6 +4,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -153,14 +154,13 @@ public class ContributionRestController {
      * @param _id
      * @return {@code ResponseEntity<IContribution>}
      */
-    @PutMapping(value = "/upState/{id}/option/{option}",
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @GetMapping(value = "/upState/{id}/option/{option}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
     public ResponseEntity<IContribution> upState(
-            @RequestBody @Valid GeneralContributionDTO dto,
             @NotBlank @NotNull @PathVariable("id") String _id,
-            @NotBlank @NotNull @PathVariable("option") String option) {
+            @NotBlank @NotNull @PathVariable("option") @Pattern(
+                    regexp = "^[1-5]{1,1}$",
+                    message = "Option only between 1-5.") String option) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(controller.upState(_id, option));
     }
