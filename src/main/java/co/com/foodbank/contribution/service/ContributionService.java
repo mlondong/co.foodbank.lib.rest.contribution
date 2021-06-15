@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,7 @@ public class ContributionService {
      * @param dto
      * @return {@code Contribution }
      */
-    public Contribution createDC(DetailContributionDTO dto) {
+    public Contribution createDC(@Valid DetailContributionDTO dto) {
         DetailContribution context = convertOf(dto);
         ContributionData data = setInitState(context);
         return repository.save(modelMapper.map(data, DetailContribution.class));
@@ -123,7 +124,7 @@ public class ContributionService {
      * @param _id
      * @return {@code Contribution }
      */
-    public Contribution updateDC(DetailContributionDTO dto, String _id) {
+    public Contribution updateDC(@Valid DetailContributionDTO dto, String _id) {
 
         Contribution query = findById(_id);
 
@@ -143,7 +144,7 @@ public class ContributionService {
      * @param dto
      * @return {@code Contribution}
      */
-    public Contribution createGC(GeneralContributionDTO dto) {
+    public Contribution createGC(@Valid GeneralContributionDTO dto) {
         GeneralContribution context = convertOfGC(dto);
         ContributionData data = setInitStateGC(context);
         return repository.save(fromContributionDataToGC(data));
@@ -166,7 +167,8 @@ public class ContributionService {
      * @param _id
      * @return {@code IContribution}
      */
-    public IContribution updateGC(GeneralContributionDTO dto, String _id) {
+    public IContribution updateGC(@Valid GeneralContributionDTO dto,
+            String _id) {
 
         Contribution query = findById(_id);
 

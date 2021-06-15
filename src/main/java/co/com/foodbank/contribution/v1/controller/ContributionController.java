@@ -1,6 +1,7 @@
 package co.com.foodbank.contribution.v1.controller;
 
 import java.util.Collection;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import co.com.foodbank.contribution.dto.DetailContributionDTO;
@@ -58,7 +59,7 @@ public class ContributionController {
      * @param dto
      * @return {@code IContribution}
      */
-    public IContribution createDC(DetailContributionDTO dto) {
+    public IContribution createDC(@Valid DetailContributionDTO dto) {
         return service.createDC(dto);
     }
 
@@ -71,7 +72,8 @@ public class ContributionController {
      * @param _id
      * @return {@code IContribution}
      */
-    public IContribution updateDC(DetailContributionDTO dto, String _id) {
+    public IContribution updateDC(@Valid DetailContributionDTO dto,
+            String _id) {
         return service.updateDC(dto, _id);
     }
 
@@ -83,7 +85,7 @@ public class ContributionController {
      * @param dto
      * @return {@code IContribution}
      */
-    public IContribution createGC(GeneralContributionDTO dto) {
+    public IContribution createGC(@Valid GeneralContributionDTO dto) {
         return service.createGC(dto);
     }
 
@@ -96,7 +98,8 @@ public class ContributionController {
      * @param _id
      * @return {@code IContribution}
      */
-    public IContribution updateGC(GeneralContributionDTO dto, String _id) {
+    public IContribution updateGC(@Valid GeneralContributionDTO dto,
+            String _id) {
         return service.updateGC(dto, _id);
     }
 
