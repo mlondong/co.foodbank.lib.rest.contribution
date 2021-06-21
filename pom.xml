@@ -92,10 +92,17 @@
 		</dependency>
 
 		<dependency>
+			<groupId>co.com.foodbank.contribution</groupId>
+			<artifactId>co.foodbank.lib.state.contribution</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>co.com.foodbank.validaton</groupId>
 			<artifactId>co.foodbank.lib.util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
