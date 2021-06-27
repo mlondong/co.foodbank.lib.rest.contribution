@@ -14,6 +14,7 @@ import co.com.foodbank.contribution.dto.DetailContributionDTO;
 import co.com.foodbank.contribution.dto.GeneralContributionDTO;
 import co.com.foodbank.contribution.dto.IContribution;
 import co.com.foodbank.contribution.dto.IStateContribution;
+import co.com.foodbank.contribution.exception.ContributionErrorException;
 import co.com.foodbank.contribution.exception.ContributionNotFoundException;
 import co.com.foodbank.contribution.repository.ContributionRepository;
 import co.com.foodbank.contribution.state.Delyvered;
@@ -47,12 +48,16 @@ public class ContributionService {
     private static final int STATE_SHIPMENT = 4;
     private static final int STATE_DELIVERED = 5;
 
+    private static final String ERROR_DC = "Is not a DetailContribution";
+    private static final String ERROR_GC = "Is not a GeneralContribution";
+
 
 
     /**
      * @return {@code Collection<IContribution>}
      */
-    public Collection<IContribution> findAll() {
+    public Collection<IContribution> findAll()
+            throws ContributionNotFoundException {
         return repository.findAll().stream()
                 .map(d -> modelMapper.map(d, IContribution.class))
                 .collect(Collectors.toList());
@@ -80,9 +85,10 @@ public class ContributionService {
      * 
      * @param code
      * @return {@code IContribution}
+     * @throws ContributionErrorException
      */
     public Contribution findByCodeBar(String code)
-            throws ContributionNotFoundException {
+            throws ContributionNotFoundException, ContributionErrorException {
 
         Contribution data = repository.findByCodeBar(code);
 
@@ -101,7 +107,8 @@ public class ContributionService {
      * @param dto
      * @return {@code Contribution }
      */
-    public Contribution createDC(@Valid DetailContributionDTO dto) {
+    public Contribution createDC(@Valid DetailContributionDTO dto)
+            throws ContributionErrorException {
         DetailContribution context = convertOf(dto);
         ContributionData data = setInitState(context);
         return repository.save(modelMapper.map(data, DetailContribution.class));
@@ -124,11 +131,16 @@ public class ContributionService {
      * @param _id
      * @return {@code Contribution }
      */
-    public Contribution updateDC(@Valid DetailContributionDTO dto, String _id) {
+    public Contribution updateDC(@Valid DetailContributionDTO dto, String _id)
+            throws ContributionNotFoundException, ContributionErrorException {
 
-        Contribution query = findById(_id);
+        Contribution queryDb = findById(_id);
+        if (!checkInstansOfDC(queryDb)) {
+            String er = new String(_id + " " + ERROR_DC);
+            throw new ContributionErrorException(er);
+        }
 
-        DetailContribution detail = fromContributionToDC(query);
+        DetailContribution detail = fromContributionToDC(queryDb);
         detail.setCodeBar(dto.getCodeBar());
         detail.setDate(dto.getDate());
         detail.setDescription(dto.getDescription());
@@ -139,12 +151,25 @@ public class ContributionService {
 
 
     /**
+     * Check type object
+     * 
+     * @param obj
+     * @return {@code Boolean}
+     */
+    private boolean checkInstansOfDC(Contribution obj) {
+        return (obj instanceof DetailContribution) ? true : false;
+    }
+
+
+
+    /**
      * Method to create General Contribution.
      * 
      * @param dto
      * @return {@code Contribution}
      */
-    public Contribution createGC(@Valid GeneralContributionDTO dto) {
+    public Contribution createGC(@Valid GeneralContributionDTO dto)
+            throws ContributionErrorException {
         GeneralContribution context = convertOfGC(dto);
         ContributionData data = setInitStateGC(context);
         return repository.save(fromContributionDataToGC(data));
@@ -166,11 +191,17 @@ public class ContributionService {
      * @param dto
      * @param _id
      * @return {@code IContribution}
+     * @throws ContributionErrorException
      */
-    public IContribution updateGC(@Valid GeneralContributionDTO dto,
-            String _id) {
+    public IContribution updateGC(@Valid GeneralContributionDTO dto, String _id)
+            throws ContributionNotFoundException, ContributionErrorException {
 
         Contribution query = findById(_id);
+
+        if (!checkInstansOfGC(query)) {
+            String er = new String(_id + " " + ERROR_GC);
+            throw new ContributionErrorException(er);
+        }
 
         GeneralContribution detail = fromContributionToGC(query);
         detail.setDate(dto.getDate());
@@ -178,6 +209,12 @@ public class ContributionService {
         detail.setVolume(modelMapper.map(dto.getVolume(), Volume.class));
 
         return repository.save(detail);
+    }
+
+
+
+    private boolean checkInstansOfGC(Contribution obj) {
+        return (obj instanceof GeneralContribution) ? true : false;
     }
 
 

@@ -91,6 +91,21 @@ public class ControllerAdvisor {
     }
 
 
+    /**
+     * Method to handle ContributionErrorException.
+     */
+    @ExceptionHandler(value = ContributionErrorException.class)
+    public ResponseEntity<Object> handleContributionErrorException(
+            ContributionErrorException ex) {
+
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN,
+                ex.getLocalizedMessage(), ex.getMessage());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(),
+                apiError.getStatus());
+
+    }
+
+
 
     /**
      * Method to handle NotFoundException.
