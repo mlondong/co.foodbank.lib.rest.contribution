@@ -7,9 +7,15 @@ import org.springframework.stereotype.Controller;
 import co.com.foodbank.contribution.dto.DetailContributionDTO;
 import co.com.foodbank.contribution.dto.GeneralContributionDTO;
 import co.com.foodbank.contribution.dto.IContribution;
+import co.com.foodbank.contribution.exception.ContributionErrorException;
+import co.com.foodbank.contribution.exception.ContributionNotFoundException;
 import co.com.foodbank.contribution.service.ContributionService;
 import co.com.foodbank.contribution.v1.model.Contribution;
 
+/**
+ * @author mauricio.londono@gmail.com co.com.foodbank.contribution.service
+ *         10/06/2021
+ */
 @Controller
 public class ContributionController {
 
@@ -23,7 +29,8 @@ public class ContributionController {
      * 
      * @return {@code Collection<IContribution>}
      */
-    public Collection<IContribution> findAll() {
+    public Collection<IContribution> findAll()
+            throws ContributionNotFoundException {
         return service.findAll();
     }
 
@@ -35,7 +42,8 @@ public class ContributionController {
      * @param _id
      * @return {@code IContribution}
      */
-    public Contribution findById(String _id) {
+    public Contribution findById(String _id)
+            throws ContributionNotFoundException {
         return service.findById(_id);
     }
 
@@ -47,7 +55,8 @@ public class ContributionController {
      * @param code
      * @return {@code IContribution}
      */
-    public Contribution findByCodeBarContribution(String code) {
+    public Contribution findByCodeBarContribution(String code)
+            throws ContributionNotFoundException, ContributionErrorException {
         return service.findByCodeBar(code);
     }
 
@@ -59,7 +68,8 @@ public class ContributionController {
      * @param dto
      * @return {@code IContribution}
      */
-    public IContribution createDC(@Valid DetailContributionDTO dto) {
+    public IContribution createDC(@Valid DetailContributionDTO dto)
+            throws ContributionErrorException {
         return service.createDC(dto);
     }
 
@@ -72,8 +82,8 @@ public class ContributionController {
      * @param _id
      * @return {@code IContribution}
      */
-    public IContribution updateDC(@Valid DetailContributionDTO dto,
-            String _id) {
+    public IContribution updateDC(@Valid DetailContributionDTO dto, String _id)
+            throws ContributionNotFoundException, ContributionErrorException {
         return service.updateDC(dto, _id);
     }
 
@@ -85,7 +95,8 @@ public class ContributionController {
      * @param dto
      * @return {@code IContribution}
      */
-    public IContribution createGC(@Valid GeneralContributionDTO dto) {
+    public IContribution createGC(@Valid GeneralContributionDTO dto)
+            throws ContributionErrorException {
         return service.createGC(dto);
     }
 
@@ -98,8 +109,8 @@ public class ContributionController {
      * @param _id
      * @return {@code IContribution}
      */
-    public IContribution updateGC(@Valid GeneralContributionDTO dto,
-            String _id) {
+    public IContribution updateGC(@Valid GeneralContributionDTO dto, String _id)
+            throws ContributionNotFoundException, ContributionErrorException {
         return service.updateGC(dto, _id);
     }
 

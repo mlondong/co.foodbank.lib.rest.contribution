@@ -3,6 +3,7 @@ package co.com.foodbank.contribution.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+import co.com.foodbank.contribution.exception.ContributionErrorException;
 import co.com.foodbank.contribution.exception.ContributionNotFoundException;
 import co.com.foodbank.contribution.v1.model.Contribution;
 
@@ -16,7 +17,7 @@ public interface ContributionRepository
 
     @Query("{'codeBar': ?0}")
     Contribution findByCodeBar(String code)
-            throws ContributionNotFoundException;
+            throws ContributionNotFoundException, ContributionErrorException;
 
     // @Query(value = "$or:[{'creatorUsername':?0},{'sharedUsers':{$in:?0}}]",
     // fields = "{'databases':1}")
