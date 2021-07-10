@@ -4,7 +4,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import co.com.foodbank.contribution.dto.IContribution;
-import co.com.foodbank.contribution.dto.IStateContribution;
+import co.com.foodbank.contribution.state.IStateContribution;
 
 /**
  * @author mauricio.londono@gmail.com co.com.foodbank.contribution.v1.model
