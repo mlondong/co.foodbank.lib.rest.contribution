@@ -92,6 +92,9 @@ public class ContributionRestController {
     public ResponseEntity<IContribution> findByIdContribution(
             @PathVariable("id") @NotBlank @NotNull String _id)
             throws ContributionNotFoundException {
+
+        System.out.println("LLEGOOOOOOOOOOOOOOOOOOOOOOOO " + _id);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(controller.findById(_id));
     }
