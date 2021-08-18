@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import co.com.foodbank.contribution.dto.DetailContributionDTO;
 import co.com.foodbank.contribution.dto.GeneralContributionDTO;
-import co.com.foodbank.contribution.dto.IContribution;
+import co.com.foodbank.contribution.dto.interfaces.IContribution;
 import co.com.foodbank.contribution.exception.ContributionErrorException;
 import co.com.foodbank.contribution.exception.ContributionNotFoundException;
 import co.com.foodbank.contribution.v1.controller.ContributionController;
