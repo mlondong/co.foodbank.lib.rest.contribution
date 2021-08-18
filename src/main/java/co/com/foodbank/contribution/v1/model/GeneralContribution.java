@@ -3,7 +3,7 @@ package co.com.foodbank.contribution.v1.model;
 import java.util.Date;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
-import co.com.foodbank.contribution.dto.IContribution;
+import co.com.foodbank.contribution.dto.interfaces.IContribution;
 import co.com.foodbank.contribution.state.IStateContribution;
 import co.com.foodbank.vehicule.dto.Volume;
 
