@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/contribution")
 @Tag(name = "Contribution", description = "the contribution API")
 @Validated
@@ -93,7 +95,6 @@ public class ContributionRestController {
             @PathVariable("id") @NotBlank @NotNull String _id)
             throws ContributionNotFoundException {
 
-        System.out.println("LLEGOOOOOOOOOOOOOOOOOOOOOOOO " + _id);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(controller.findById(_id));
